@@ -17,7 +17,7 @@ const products = [
     name: 'Coffee Mug',
     price: 12.99,
     description: 'Ceramic coffee mug with heat retention technology',
-    image: 'https://images.unsplash.com/photo-1514228742587-6b1558fcf93a?w=300',
+    image: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=300',
     category: 'Kitchen',
     stock: 25
   },
