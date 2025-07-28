@@ -15,6 +15,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/shopping-
 
 const Product = require('./models/Product');
 const Order = require('./models/Order');
+const authRoutes = require('./routes/auth');
 
 app.get('/api/products', async (req, res) => {
   try {
@@ -90,6 +91,9 @@ app.get('/api/orders/:id', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+// Use auth routes
+app.use('/api/auth', authRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
