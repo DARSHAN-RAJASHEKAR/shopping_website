@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-react-app:*)",
+      "Bash(npm create:*)",
+      "Bash(npm install:*)",
+      "Bash(mkdir:*)",
+      "Bash(npm init:*)",
+      "Bash(net start:*)",
+      "Bash(where mongod)",
+      "Bash(docker:*)",
+      "Bash(npm run seed:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npx vite:*)",
+      "Bash(curl:*)",
+      "Bash(taskkill:*)",
+      "Bash(git init:*)",
+      "Bash(git remote add:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(npm start)",
+      "Bash(node -c index.js)",
+      "Bash(powershell -Command \"Invoke-RestMethod -Uri ''http://localhost:5000/api/products'' -Method Get\")",
+      "Bash(powershell:*)",
+      "Bash(node:*)"
+    ],
+    "deny": []
+  }
+}
