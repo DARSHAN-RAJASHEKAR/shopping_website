@@ -2,6 +2,8 @@ export interface Product {
   _id: string;
   name: string;
   price: number;
+  offerPrice?: number;
+  discountPercent?: number;
   description: string;
   image: string;
   category: string;

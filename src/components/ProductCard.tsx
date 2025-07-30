@@ -1,37 +1,40 @@
 import React from 'react';
 import { Product } from '../types';
-import { useCart } from '../context/CartContext';
+import { Link } from 'react-router-dom';
 
 interface ProductCardProps {
   product: Product;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  const { dispatch } = useCart();
-
-  const handleAddToCart = () => {
-    dispatch({ type: 'ADD_TO_CART', payload: product });
-  };
-
   return (
-    <div className="product-card">
-      <img src={product.image} alt={product.name} className="product-image" />
-      <div className="product-info">
-        <h3 className="product-name">{product.name}</h3>
-        <p className="product-description">{product.description}</p>
-        <p className="product-category">{product.category}</p>
-        <div className="product-footer">
-          <span className="product-price">${product.price.toFixed(2)}</span>
-          <button 
-            className="add-to-cart-btn"
-            onClick={handleAddToCart}
-            disabled={product.stock === 0}
-          >
-            {product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
-          </button>
+    <Link to={`/product/${product._id}`} className="product-card-link">
+      <div className="product-card">
+        {product.discountPercent && (
+          <div className="discount-badge">
+            {product.discountPercent}% OFF
+          </div>
+        )}
+        <img src={product.image} alt={product.name} className="product-image" />
+        <div className="product-info">
+          <h3 className="product-name">{product.name}</h3>
+          <p className="product-category">{product.category}</p>
+          <div className="product-footer">
+            <div className="price-section">
+              {product.offerPrice ? (
+                <>
+                  <span className="offer-price">${product.offerPrice.toFixed(2)}</span>
+                  <span className="original-price">${product.price.toFixed(2)}</span>
+                </>
+              ) : (
+                <span className="product-price">${product.price.toFixed(2)}</span>
+              )}
+            </div>
+            {product.stock === 0 && <span className="stock-status">Out of Stock</span>}
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
