@@ -725,6 +725,7 @@ body {
   color: #2c3e50;
   margin: 0;
   font-size: 1.1rem;
+  font-weight: 600;
 }
 
 .order-status {
@@ -741,7 +742,7 @@ body {
   justify-content: space-between;
   align-items: center;
   font-size: 0.9rem;
-  color: #7f8c8d;
+  color: #2c3e50;
 }
 
 .order-total {
@@ -774,6 +775,13 @@ body {
   align-items: center;
   padding: 0.5rem 0;
   border-bottom: 1px solid #e9ecef;
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+.detail-row strong {
+  color: #2c3e50;
+  font-weight: 600;
 }
 
 .detail-row:last-child {

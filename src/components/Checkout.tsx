@@ -24,7 +24,7 @@ const Checkout: React.FC = () => {
         total: state.total
       };
 
-      const response = await axios.post('http://localhost:5003/api/orders', orderData);
+      const response = await axios.post('http://localhost:5000/api/orders', orderData);
       
       dispatch({ type: 'CLEAR_CART' });
       alert(`Order placed successfully! Order Number: ${response.data.order.orderNumber}`);

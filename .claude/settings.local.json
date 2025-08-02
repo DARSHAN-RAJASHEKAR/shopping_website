@@ -23,7 +23,10 @@
       "Bash(node -c index.js)",
       "Bash(powershell -Command \"Invoke-RestMethod -Uri ''http://localhost:5000/api/products'' -Method Get\")",
       "Bash(powershell:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(rmdir:*)",
+      "Bash(ls:*)",
+      "Bash(rm:*)"
     ],
     "deny": []
   }
