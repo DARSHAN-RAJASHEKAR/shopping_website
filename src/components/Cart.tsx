@@ -35,19 +35,21 @@ const Cart: React.FC = () => {
               <p>${item.product.price.toFixed(2)}</p>
             </div>
             <div className="cart-item-controls">
-              <button 
-                onClick={() => updateQuantity(item.product._id, item.quantity - 1)}
-                className="quantity-btn"
-              >
-                -
-              </button>
-              <span className="quantity">{item.quantity}</span>
-              <button 
-                onClick={() => updateQuantity(item.product._id, item.quantity + 1)}
-                className="quantity-btn"
-              >
-                +
-              </button>
+              <div className="quantity-selector">
+                <label htmlFor={`quantity-${item.product._id}`}>Quantity:</label>
+                <select 
+                  id={`quantity-${item.product._id}`}
+                  value={item.quantity}
+                  onChange={(e) => updateQuantity(item.product._id, parseInt(e.target.value))}
+                  className="quantity-dropdown"
+                >
+                  {[...Array(10)].map((_, i) => (
+                    <option key={i + 1} value={i + 1}>
+                      {i + 1}
+                    </option>
+                  ))}
+                </select>
+              </div>
               <button 
                 onClick={() => removeFromCart(item.product._id)}
                 className="remove-btn"

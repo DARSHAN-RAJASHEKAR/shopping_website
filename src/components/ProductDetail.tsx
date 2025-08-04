@@ -42,7 +42,9 @@ const ProductDetail: React.FC = () => {
   };
 
   const handleQuantityChange = (newQuantity: number) => {
-    if (newQuantity >= 1 && newQuantity <= (product?.stock || 1)) {
+    if (newQuantity < 1) {
+      setQuantity(1);
+    } else if (newQuantity <= (product?.stock || 1)) {
       setQuantity(newQuantity);
     }
   };
@@ -106,29 +108,20 @@ const ProductDetail: React.FC = () => {
           
           {product.stock > 0 && (
             <div className="product-detail-actions">
-              <div className="quantity-selector">
+              <div className="quantity-selector-detail">
                 <label htmlFor="quantity">Quantity:</label>
-                <div className="quantity-controls">
+                <div className="quantity-controls-detail">
                   <button 
                     onClick={() => handleQuantityChange(quantity - 1)}
-                    disabled={quantity <= 1}
-                    className="quantity-btn"
+                    className="quantity-btn-detail decrement"
                   >
                     -
                   </button>
-                  <input
-                    id="quantity"
-                    type="number"
-                    value={quantity}
-                    onChange={(e) => handleQuantityChange(parseInt(e.target.value) || 1)}
-                    min="1"
-                    max={product.stock}
-                    className="quantity-input"
-                  />
+                  <span className="quantity-display-detail">{quantity}</span>
                   <button 
                     onClick={() => handleQuantityChange(quantity + 1)}
                     disabled={quantity >= product.stock}
-                    className="quantity-btn"
+                    className="quantity-btn-detail increment"
                   >
                     +
                   </button>
