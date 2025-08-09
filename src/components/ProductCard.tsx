@@ -9,7 +9,7 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <Link to={`/product/${product._id}`} className="product-card-link">
-      <div className="product-card">
+      <div className={`product-card ${product.stock === 0 ? 'out-of-stock' : ''}`}>
         {product.discountPercent && (
           <div className="discount-badge">
             {product.discountPercent}% OFF

@@ -41,11 +41,81 @@ app.get('/api/products/:id', async (req, res) => {
   }
 });
 
+// Validate cart items against stock
+app.post('/api/cart/validate', async (req, res) => {
+  try {
+    const { items } = req.body;
+    const validationErrors = [];
+    
+    for (const item of items) {
+      const product = await Product.findById(item.product._id);
+      if (!product) {
+        validationErrors.push({
+          productId: item.product._id,
+          message: 'Product not found'
+        });
+        continue;
+      }
+      
+      if (product.stock < item.quantity) {
+        validationErrors.push({
+          productId: item.product._id,
+          productName: product.name,
+          requestedQuantity: item.quantity,
+          availableStock: product.stock,
+          message: `Only ${product.stock} items available in stock`
+        });
+      }
+    }
+    
+    res.json({
+      valid: validationErrors.length === 0,
+      errors: validationErrors
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 app.post('/api/orders', async (req, res) => {
   try {
     const { items, address, total } = req.body;
     
+    // Validate stock availability before placing order
+    const stockValidation = [];
+    for (const item of items) {
+      const product = await Product.findById(item.product._id);
+      if (!product) {
+        return res.status(400).json({ 
+          message: `Product ${item.product.name} not found` 
+        });
+      }
+      
+      if (product.stock < item.quantity) {
+        stockValidation.push({
+          product: product.name,
+          requested: item.quantity,
+          available: product.stock
+        });
+      }
+    }
+    
+    if (stockValidation.length > 0) {
+      return res.status(400).json({ 
+        message: 'Insufficient stock for some items', 
+        stockIssues: stockValidation 
+      });
+    }
+    
     const orderNumber = 'ORD-' + Date.now();
+    
+    // Deduct stock for each item
+    for (const item of items) {
+      await Product.findByIdAndUpdate(
+        item.product._id,
+        { $inc: { stock: -item.quantity } }
+      );
+    }
     
     const orderItems = items.map(item => ({
       product: item.product._id,

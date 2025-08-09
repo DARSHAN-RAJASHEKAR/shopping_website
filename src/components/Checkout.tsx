@@ -18,6 +18,20 @@ const Checkout: React.FC = () => {
     setIsSubmitting(true);
     
     try {
+      // Validate stock before placing order
+      const stockValidation = await axios.post('http://localhost:5000/api/cart/validate', {
+        items: state.items
+      });
+
+      if (!stockValidation.data.valid) {
+        const errorMessages = stockValidation.data.errors.map((error: any) => 
+          `${error.productName}: ${error.message}`
+        ).join('\n');
+        alert(`Stock validation failed:\n${errorMessages}`);
+        setIsSubmitting(false);
+        return;
+      }
+
       const orderData = {
         items: state.items,
         address,
@@ -29,9 +43,18 @@ const Checkout: React.FC = () => {
       dispatch({ type: 'CLEAR_CART' });
       alert(`Order placed successfully! Order Number: ${response.data.order.orderNumber}`);
       navigate('/orders');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error placing order:', error);
-      alert('Error placing order. Please try again.');
+      
+      if (error.response?.data?.message === 'Insufficient stock for some items') {
+        const stockIssues = error.response.data.stockIssues;
+        const errorMessages = stockIssues.map((issue: any) => 
+          `${issue.product}: Requested ${issue.requested}, Available ${issue.available}`
+        ).join('\n');
+        alert(`Insufficient stock:\n${errorMessages}`);
+      } else {
+        alert('Error placing order. Please try again.');
+      }
     } finally {
       setIsSubmitting(false);
     }

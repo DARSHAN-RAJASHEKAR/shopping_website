@@ -1313,3 +1313,42 @@ body {
     flex-wrap: wrap;
   }
 }
+
+/* Stock-related styles */
+.stock-error {
+  color: #e74c3c;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+.stock-info {
+  color: #7f8c8d;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+.in-stock {
+  color: #27ae60;
+  font-weight: 500;
+}
+
+.out-of-stock {
+  color: #e74c3c;
+  font-weight: 500;
+}
+
+.stock-status {
+  color: #e74c3c;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Disable out of stock products */
+.product-card.out-of-stock {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.product-card.out-of-stock .product-image {
+  filter: grayscale(50%);
+}
