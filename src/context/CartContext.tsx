@@ -1,9 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useReducer,
-  useEffect,
-} from "react";
+import React, { createContext, useContext, useReducer, useEffect } from "react";
 import type { ReactNode } from "react";
 import type { Product, CartItem } from "../types";
 
@@ -30,7 +25,6 @@ const CartContext = createContext<
 >(undefined);
 
 const cartReducer = (state: CartState, action: CartAction): CartState => {
-
   switch (action.type) {
     case "ADD_TO_CART": {
       const existingItem = state.items.find(
@@ -87,7 +81,6 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
       const guestCart = state;
       const userCart = loadCartFromStorage(action.payload.userId);
 
-
       if (action.payload.userId) {
         // User logged in - merge guest cart with user cart
         const mergedCart = mergeGuestCartWithUserCart(guestCart, userCart);
@@ -124,9 +117,6 @@ const saveCartToStorage = (cartState: CartState, userId?: string) => {
   try {
     const key = getCartStorageKey(userId);
     localStorage.setItem(key, JSON.stringify(cartState));
-
-    // Verify save worked
-    const saved = localStorage.getItem(key);
   } catch (error) {
     // Silently handle cart save errors
   }
@@ -191,29 +181,18 @@ const mergeGuestCartWithUserCart = (
   };
 };
 
-// Clear all cart-related localStorage entries (for debugging only)
-// const clearAllCartStorage = () => {
-//   // Get all localStorage keys and remove any that start with 'shopping-cart'
-//   const keysToRemove: string[] = [];
-//   for (let i = 0; i < localStorage.length; i++) {
-//     const key = localStorage.key(i);
-//     if (key && key.startsWith("shopping-cart")) {
-//       keysToRemove.push(key);
-//     }
-//   }
-//   keysToRemove.forEach((key) => {
-//     localStorage.removeItem(key);
-//   });
-// };
-
 export const CartProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   // Initialize cart with guest cart data from localStorage immediately
-  const [state, dispatch] = useReducer(cartReducer, { items: [], total: 0 }, () => {
-    const guestCart = loadCartFromStorage(); // Load guest cart on initialization
-    return guestCart;
-  });
+  const [state, dispatch] = useReducer(
+    cartReducer,
+    { items: [], total: 0 },
+    () => {
+      const guestCart = loadCartFromStorage(); // Load guest cart on initialization
+      return guestCart;
+    }
+  );
   const [currentUserId, setCurrentUserId] = React.useState<
     string | undefined
   >();
@@ -225,7 +204,6 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
   }, [state, currentUserId]);
 
   const setCurrentUser = (userId?: string) => {
-
     if (!isInitialized) {
       // First time initialization - load appropriate cart
       if (userId) {
@@ -244,13 +222,12 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
       return;
     }
 
-
     if (userId && userId !== currentUserId) {
       // User logged in - load their cart and merge with current cart
       dispatch({ type: "LOAD_USER_CART", payload: { userId } });
     } else if (!userId && currentUserId) {
       // User logged out - save their cart and clear display
-      
+
       // SAVE user's current cart to their storage before clearing
       if (state.items.length > 0) {
         saveCartToStorage(state, currentUserId);
@@ -261,10 +238,10 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
 
       // Update userId first, then clear cart
       setCurrentUserId(userId);
-      
+
       // Then dispatch the logout action - this clears the visible cart
       dispatch({ type: "LOGOUT_USER" });
-      
+
       return; // Exit early to avoid setting userId again
     }
     setCurrentUserId(userId);
