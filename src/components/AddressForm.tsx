@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Address } from '../types';
+import type { Address } from '../types';
 
 interface AddressFormProps {
   onSubmit: (address: Address) => void;

@@ -13,8 +13,7 @@ export const CartAuthIntegration: React.FC<CartAuthIntegrationProps> = ({ childr
   useEffect(() => {
     // Only update cart context after auth has finished loading
     if (!isLoading) {
-      console.log('Auth loaded, setting current user:', user?._id);
-      setCurrentUser(user?._id);
+      setCurrentUser(user?.id);
     }
   }, [user, isLoading, setCurrentUser]);
 

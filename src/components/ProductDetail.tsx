@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Product } from '../types';
+import type { Product } from '../types';
 import { useCart } from '../context/CartContext';
 
 const ProductDetail: React.FC = () => {
@@ -18,11 +18,10 @@ const ProductDetail: React.FC = () => {
         if (response.ok) {
           const productData = await response.json();
           setProduct(productData);
-        } else {
-          console.error('Product not found');
         }
       } catch (error) {
-        console.error('Error fetching product:', error);
+        // If product fails to load, leave as null (shows not found UI)
+        setProduct(null);
       } finally {
         setLoading(false);
       }

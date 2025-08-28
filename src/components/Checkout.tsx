@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
-import { Address } from '../types';
+import type { Address } from '../types';
 import AddressForm from './AddressForm';
 import { useNavigate } from 'react-router-dom';
 import Auth from './Auth';
@@ -44,8 +44,6 @@ const Checkout: React.FC = () => {
       alert(`Order placed successfully! Order Number: ${response.data.order.orderNumber}`);
       navigate('/orders');
     } catch (error: any) {
-      console.error('Error placing order:', error);
-      
       if (error.response?.data?.message === 'Insufficient stock for some items') {
         const stockIssues = error.response.data.stockIssues;
         const errorMessages = stockIssues.map((issue: any) => 

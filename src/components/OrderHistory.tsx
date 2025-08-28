@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Order } from '../types';
+import type { Order } from '../types';
 
 const OrderHistory: React.FC = () => {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -16,7 +16,8 @@ const OrderHistory: React.FC = () => {
       const response = await axios.get('http://localhost:5000/api/orders');
       setOrders(response.data);
     } catch (error) {
-      console.error('Error fetching orders:', error);
+      // If orders fail to load, show empty state
+      setOrders([]);
     } finally {
       setLoading(false);
     }

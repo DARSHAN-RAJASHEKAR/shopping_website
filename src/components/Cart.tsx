@@ -32,7 +32,7 @@ const Cart: React.FC = () => {
       
       dispatch({ type: 'UPDATE_QUANTITY', payload: { id, quantity } });
     } catch (error) {
-      console.error('Error checking stock:', error);
+      // Silently handle stock check errors
     }
   };
 

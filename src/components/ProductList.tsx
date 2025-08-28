@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Product } from '../types';
+import type { Product } from '../types';
 import ProductCard from './ProductCard';
 
 const ProductList: React.FC = () => {
@@ -16,7 +16,8 @@ const ProductList: React.FC = () => {
       const response = await axios.get('http://localhost:5000/api/products');
       setProducts(response.data);
     } catch (error) {
-      console.error('Error fetching products:', error);
+      // If products fail to load, show empty state
+      setProducts([]);
     } finally {
       setLoading(false);
     }
