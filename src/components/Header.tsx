@@ -30,7 +30,7 @@ const Header: React.FC = () => {
       <header className="header">
         <div className="header-content">
           <Link to="/" className="logo">
-            <h1>ShopEasy</h1>
+            <h1>ShopSphere</h1>
           </Link>
           <nav className="nav">
             <Link to="/" className="nav-link">Products</Link>

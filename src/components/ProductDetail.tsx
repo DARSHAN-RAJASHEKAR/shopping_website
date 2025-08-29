@@ -49,7 +49,12 @@ const ProductDetail: React.FC = () => {
   };
 
   if (loading) {
-    return <div className="loading">Loading product details...</div>;
+    return (
+      <div className="loading">
+        <div className="loading-spinner"></div>
+        <div className="loading-text">Loading product details...</div>
+      </div>
+    );
   }
 
   if (!product) {

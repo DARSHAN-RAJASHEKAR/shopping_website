@@ -45,7 +45,12 @@ const OrderHistory: React.FC = () => {
   };
 
   if (loading) {
-    return <div className="loading">Loading order history...</div>;
+    return (
+      <div className="loading">
+        <div className="loading-spinner"></div>
+        <div className="loading-text">Loading order history...</div>
+      </div>
+    );
   }
 
   if (orders.length === 0) {

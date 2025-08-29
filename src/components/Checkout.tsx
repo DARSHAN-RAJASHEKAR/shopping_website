@@ -110,7 +110,12 @@ const Checkout: React.FC = () => {
           </div>
         </div>
         <AddressForm onSubmit={handleAddressSubmit} />
-        {isSubmitting && <div className="loading">Placing order...</div>}
+        {isSubmitting && (
+          <div className="loading">
+            <div className="loading-spinner"></div>
+            <div className="loading-text">Placing your order...</div>
+          </div>
+        )}
       </div>
     </div>
   );

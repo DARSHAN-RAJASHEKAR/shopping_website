@@ -27,7 +27,7 @@ const baseProducts = [
     name: 'Coffee Mug',
     price: 12.99,
     description: 'Ceramic coffee mug with heat retention technology. Perfect for your morning coffee or tea. Dishwasher and microwave safe.',
-    image: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=300',
+    image: 'https://images.unsplash.com/photo-1605714196241-00bf7a8fe7bb?w=300',
     category: 'Kitchen',
     stock: 25
   },
@@ -75,7 +75,7 @@ const baseProducts = [
     name: 'Bluetooth Speaker',
     price: 59.99,
     description: 'Portable Bluetooth speaker with premium sound quality. 360-degree sound, waterproof design, and 12-hour battery life.',
-    image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=300',
+    image: 'https://images.unsplash.com/photo-1582978571763-2d039e56f0c3?w=300',
     category: 'Electronics',
     stock: 18
   },
